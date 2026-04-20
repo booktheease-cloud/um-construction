@@ -107,6 +107,42 @@ app.get('/api/health', (_req, res) => {
   })
 })
 
+app.get('/', (_req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>UM Construction</title>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .container { background: white; padding: 3rem; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); text-align: center; max-width: 600px; }
+        h1 { color: #333; margin-bottom: 1rem; font-size: 2.5rem; }
+        p { color: #666; margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.6; }
+        .links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        a { display: inline-block; padding: 0.75rem 1.5rem; background: #667eea; color: white; text-decoration: none; border-radius: 5px; transition: background 0.3s; }
+        a:hover { background: #764ba2; }
+        .api-link { background: #48bb78; }
+        .api-link:hover { background: #38a169; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>UM Construction</h1>
+        <p>Professional construction and renovation services. Quality workmanship, reliable service.</p>
+        <div class="links">
+          <a href="/api/health">API Health</a>
+          <a href="/api/services" class="api-link">Services</a>
+          <a href="/api/portfolio" class="api-link">Portfolio</a>
+        </div>
+      </div>
+    </body>
+    </html>
+  `)
+})
+
 app.post('/api/admin/login', requireDb, async (req, res) => {
   const { username, password } = req.body || {}
   const hasAdmin = (await AdminUser.countDocuments()) > 0
